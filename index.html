@@ -1,0 +1,163 @@
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <link href="static/css/bootstrap.css" rel="stylesheet">
+        <link href="static/css/bootstrap-responsive.css" rel="stylesheet">
+        <style>
+            .container{position:relative;width:1000px;height:600px; margin:auto;}
+            .box{position:absolute;width:128px;height:128px;background:#fff;}
+            .dot{ position:absolute;width:80px;height:25px;}
+        </style>
+    </head>
+    
+    <body>
+
+            <div class="container">
+                    <div id="runTime" class="dot"></div>
+                    <div id="poker1" class="box"><img src="static/img/poker/back.png"></div>
+                    <div id="poker2" class="box"><img src="static/img/poker/back.png"></div>
+                    <div id="poker3" class="box"><img src="static/img/poker/back.png"></div>
+                    <div id="poker4" class="box"><img src="static/img/poker/back.png"></div>
+                    <div id="poker5" class="box"><img src="static/img/poker/back.png"></div>
+                    <div id="poker6" class="box"><img src="static/img/poker/back.png"></div>
+                    <div id="poker7" class="box"><img src="static/img/poker/back.png"></div>
+                    <div id="poker8" class="box"><img src="static/img/poker/back.png"></div>
+                    <div id="poker9" class="box"><img src="static/img/poker/back.png"></div>
+                    <div id="poker10" class="box"><img src="static/img/poker/back.png"></div>
+                    <div id="poker11" class="box"><img src="static/img/poker/back.png"></div>
+                    <div id="poker12" class="box"><img src="static/img/poker/back.png"></div>
+                    <div id="poker13" class="box"><img src="static/img/poker/back.png"></div>
+                    <br/>
+
+
+                
+                <button id="startBtn" class="btn btn-primary">开始</button>
+                <button id="stopBtn" class="btn btn-danger">停止</button>
+                
+                
+	
+<!-- 	<div class="box"></div>
+	<div class="box"></div>
+	<div class="box"></div>
+	<div class="box"></div>
+	<div class="box"></div>
+	<div class="box"></div>
+	<div class="box"></div>
+	<div class="box"></div>
+	<div class="box"></div>
+	<div class="box"></div>
+	<div class="box"></div>
+	<div class="box"></div>
+	<div class="box"></div>
+	<div class="box"></div> -->
+
+            </div>
+        
+        <script type="text/javascript" src="static/js/jquery-1.9.1.min.js"></script>
+        <script type="text/javascript" src="static/js/bootstrap.min.js"></script>
+        <script>
+             $(function()
+             {
+                    //定时器
+                    var interval;
+                    //秒数累加
+                    var seconds = 0;
+                    //混淆次数
+                    var confuseNum = 7;
+                    //牌面最大数
+                    var maxPoker = 13;
+                    //最终结果
+                    var result = 0;
+                    //最后一次显示的随机牌面
+                    var lastView = 0;
+                    //随机显示牌面点数
+                    var randomView;
+                    //中心点横坐标
+                    var dotLeft = ($(".container").width()-$(".dot").width())/2;
+                    //中心点纵坐标
+                    var dotTop = ($(".container").height()-$(".dot").height())/2;
+                    //起始角度
+                    var stard = 0;
+                    //半径
+                    var radius = 300;
+                    //每一个BOX对应的角度;
+                    var avd = 360/$(".box").length;
+                    //每一个BOX对应的弧度;
+                    var ahd = avd*Math.PI/180;
+                    
+
+                    console.log(Math.sin(ahd*2));
+                    console.log(Math.sin(ahd*6));
+
+                    console.log(Math.cos(ahd*2));
+                    console.log(Math.cos(ahd*3));
+                    //设置圆的中心点的位置
+                    $(".dot").css({"left":dotLeft,"top":dotTop});
+                    $(".box").each(function(index, element){
+                        $(this).css({"left":Math.sin((ahd*index))*radius+dotLeft,"top":Math.cos((ahd*index))*radius+dotTop});
+                    });
+                    
+                    function run() {
+                        interval = setInterval(DisplaySeconds, "1000");
+                        
+                    }
+                    
+                    function DisplaySeconds() {
+                        
+                        seconds++;
+                        randomView = parseInt(Math.random() * (13 - 1 + 1) + 1); 
+                        $('#poker'+randomView).html('<h2>是这个? ' + String(seconds)+'次猜测</h2>');
+                        //$('#poker'+randomView).html('<img src="static/img/poker/'+String(randomView)+'.png">');
+                        //lastView = randomView;
+                        //$('#poker'+randomView).delay(1000).html('<img src="static/img/poker/back.png">');
+                       
+                        
+                    }
+                    
+                    function DisplayResult() {
+                    
+                        //计算公式
+                        result = maxPoker+confuseNum+1-seconds;
+                        //所有牌反面
+                        for (var i = 1;i<=13;i++)
+                        {
+                            $('#poker'+i).html('<img src="static/img/poker/back.png">');
+                        }
+                        
+                        $('#result').html('<h2>'+'您心里想的点数是'+String(result)+'<h2>');
+                        $('#poker'+result).html('<img src="static/img/poker/'+String(result)+'.png">');
+        
+                        
+                    }
+
+                 
+                    $("#stopBtn").click(function(){
+
+                        clearTimeout(interval);  //关闭定时器
+                        DisplayResult();
+                        seconds = 0;
+                        result = 0;
+                        
+                      
+                    })
+                  
+                                   
+                    $("#startBtn").click(function(){
+                        //所有牌反面
+                        for (var i = 1;i<=13;i++)
+                        {
+                            $('#poker'+i).html('<img src="static/img/poker/back.png">');
+                        }
+                        seconds = 0;
+                        run();//开启定时器
+                        $('#poker'+result).html('<img src="static/img/poker/back.png">');
+                      
+                 
+                  })
+                       
+                });
+        </script>
+    </body>
+</html>
