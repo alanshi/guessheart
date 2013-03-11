@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html>
     <head>
@@ -30,28 +29,10 @@
                     <div id="poker12" class="box"><img src="static/img/poker/back.png"></div>
                     <div id="poker13" class="box"><img src="static/img/poker/back.png"></div>
                     <br/>
-
-
-                
+                    
+                <div id="result"></div>
                 <button id="startBtn" class="btn btn-primary">开始</button>
                 <button id="stopBtn" class="btn btn-danger">停止</button>
-                
-                
-	
-<!-- 	<div class="box"></div>
-	<div class="box"></div>
-	<div class="box"></div>
-	<div class="box"></div>
-	<div class="box"></div>
-	<div class="box"></div>
-	<div class="box"></div>
-	<div class="box"></div>
-	<div class="box"></div>
-	<div class="box"></div>
-	<div class="box"></div>
-	<div class="box"></div>
-	<div class="box"></div>
-	<div class="box"></div> -->
 
             </div>
         
@@ -126,7 +107,7 @@
                             $('#poker'+i).html('<img src="static/img/poker/back.png">');
                         }
                         
-                        $('#result').html('<h2>'+'您心里想的点数是'+String(result)+'<h2>');
+                        $('#result').html('<h2>'+'您心里想的点数是'+String(result)+'点<h2>');
                         $('#poker'+result).html('<img src="static/img/poker/'+String(result)+'.png">');
         
                         
@@ -152,7 +133,7 @@
                         }
                         seconds = 0;
                         run();//开启定时器
-                        $('#poker'+result).html('<img src="static/img/poker/back.png">');
+                        //$('#poker'+result).html('<img src="static/img/poker/back.png">');
                       
                  
                   })
